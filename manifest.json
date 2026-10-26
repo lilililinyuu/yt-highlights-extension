@@ -1,0 +1,70 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extName__",
+  "version": "1.1.50",
+  "description": "__MSG_extDescription__",
+  "default_locale": "zh_CN",
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "action": {
+    "default_title": "__MSG_extName__",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    }
+  },
+  "background": { "service_worker": "background.js" },
+  "minimum_chrome_version": "111",
+  "permissions": ["storage", "unlimitedStorage"],
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/live_chat*"],
+      "js": ["content/bridge.js"],
+      "world": "MAIN",
+      "all_frames": true,
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["*://www.youtube.com/live_chat*"],
+      "js": ["content/chatframe.js"],
+      "all_frames": true,
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content/bridge.js"],
+      "world": "MAIN",
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": [
+        "content/core/i18n.js",
+        "content/core/selectors.js",
+        "content/core/video.js",
+        "content/core/time.js",
+        "content/core/innertube.js",
+        "content/core/keywords.js",
+        "content/panel/panel-css.js",
+        "content/panel/chart.js",
+        "content/panel/panel.js",
+        "content/features/comments.js",
+        "content/features/chat.js",
+        "content/features/subs.js",
+        "content/features/overlay.js",
+        "content/features/ai.js",
+        "content/main.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}
+
